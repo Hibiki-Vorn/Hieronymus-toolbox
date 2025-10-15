@@ -1,5 +1,4 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -12,6 +11,47 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+
+body[dark-theme="false"] {
+    --bg-color: #fafafa;
+    --text-color: #333;
+    --primary-color: #007bff;
+    --primary-hover: #0056b3;
+    --button-text: white;
+    --navbar-bg: white;
+    --navbar-shadow: rgba(0, 0, 0, 0.1);
+    --content-bg: white;
+    --content-shadow: rgba(0, 0, 0, 0.1);
+    --link-hover-bg: #eaf4ff;
+    --logo-gradient-start: rgba(0, 123, 255, 0.3);
+    --logo-gradient-end: rgba(0, 123, 255, 0);
+  }
+
+  body[dark-theme="true"] {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --primary-color: #007bff;
+    --primary-hover: #3399ff;
+    --button-text: white;
+    --navbar-bg: #1e1e1e;
+    --navbar-shadow: rgba(0, 0, 0, 0.5);
+    --content-bg: #1e1e1e;
+    --content-shadow: rgba(0, 0, 0, 0.4);
+    --link-hover-bg: rgba(0, 123, 255, 0.15);
+    --logo-gradient-start: rgba(51, 153, 255, 0.3);
+    --logo-gradient-end: rgba(51, 153, 255, 0);
+  }
+	
+
+  body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    transition: background 0.3s, color 0.3s;
+  }
+
 
 a {
   font-weight: 500;
@@ -42,7 +82,6 @@ h1 {
 #app {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
