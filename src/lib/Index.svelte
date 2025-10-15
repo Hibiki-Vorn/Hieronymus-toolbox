@@ -1,14 +1,21 @@
 <script>
 	import favicon from "../assets/favicon.svg";
+  import Startmenu from "./Startmenu.svelte";
+
+  let showMenu = $state(false);
+
+  let setMenu = () => { showMenu = !showMenu };
+
 </script>
 
 <div>
+  <Startmenu show={showMenu} close={setMenu}/>
 	<div class="welcome">
 		<div class="logo-wrapper">
-			<img src={favicon} alt="App Logo" loading="lazy" decoding="async" width="160" height="160"/>
+			<img src={favicon} alt="" loading="lazy" decoding="async" width="160" height="160"/>
 		</div>
 		<h1>Hieronymus's Tool Box</h1>
-		<button class="start-button" onclick={null}>Open the Tool Box now</button>
+		<button class="start-button" onclick={setMenu}>Open the Tool Box now</button>
 	</div>
 </div>
 
@@ -66,6 +73,7 @@
     width: clamp(80px, 20vw, 200px);
     margin-bottom: 1rem;
     transition: transform 0.3s ease;
+    animation: rotate 3s linear infinite;
   }
 
   .welcome img:hover {
@@ -103,6 +111,24 @@
     z-index: 1;
   }
 
+  @keyframes rotate {
+    0% {
+        transform: rotate3d(1, 1, 0, 0deg);
+      }
+      25% {
+        transform: rotate3d(1, 0, 0, 90deg);
+      }
+      50% {
+        transform: rotate3d(0, 1, 0, 180deg);
+      }
+      75% {
+        transform: rotate3d(0, 0, 1, 270deg);
+      }
+      100% {
+        transform: rotate3d(1, 1, 0, 360deg);
+      }
+  }
+
   @media (max-width: 500px) {
     h1 {
       font-size: 1.6rem;
@@ -113,4 +139,5 @@
       padding: 0.6rem 1.2rem;
     }
   }
+
 </style>

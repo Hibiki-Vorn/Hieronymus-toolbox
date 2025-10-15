@@ -1,7 +1,11 @@
 <script>
+// @ts-nocheck
   import { onMount } from 'svelte';
+	import favicon from "./assets/favicon.svg";
 
-  let Component = null;
+  let Component = $state(null);
+  let _404 = $state(false);
+  let _404_message = $state("");
 
   const LazyComponentRouterList = {
     '/': () => import('./lib/Index.svelte'),
@@ -11,12 +15,15 @@
 
   onMount(() => {
     (async function loadComponent() {
-      const module = await LazyComponentRouterList[window.location.pathname]();
-      Component = module.default;
+      try {
+        const module = await LazyComponentRouterList[window.location.pathname]();
+        Component = module.default;
+      } catch (error) {
+        _404 = true;
+        _404_message = `Component for path "${window.location.pathname}" not found.`;
+      }
     })();
   });
-
-  
 
 	const toggleTheme = () => {
 		const currentTheme = document.body.getAttribute("dark-theme");
@@ -31,7 +38,11 @@
 
 	<header class="navbar">
 		<div class="left-group">
-			<div class="un_mobile-hidden"><button class="brand" onclick={()=>{}}>🧰 ToolBox</button></div>
+			<div class="mobile-hidden">
+        <a href="/">
+          <button class="brand"><div class="minilogo"></div> Tool Box</button>
+        </a>
+      </div>
     </div>
 		<button class="theme-button" onclick={toggleTheme}>Day/Night</button>
 	</header>
@@ -39,8 +50,10 @@
 	<main class="content">
     {#if Component}
       <Component/>
-    {:else}
+    {/if}
+    {#if _404}
       <h1>404 Not Found</h1>
+      <p>{_404_message}</p>
     {/if}
 	</main>
 </div>
@@ -115,9 +128,22 @@
   }
 
   @media (max-width: 700px) {
-    .un_mobile-hidden {
-      display: none;
+    .brand {
+      background: transparent;
+      padding-left: 0;
     }
+  }
+
+  .minilogo {
+    width: 1.5rem;
+    height: 1.5rem;
+    background-image: url("/favicon.svg");
+    background-size: cover;
+    background-position: center;
+    display: inline-block;
+    margin-right: 0rem;
+    margin-bottom: 0.2rem;
+    vertical-align: middle;
   }
 
 </style>
