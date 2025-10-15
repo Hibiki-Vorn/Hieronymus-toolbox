@@ -89,22 +89,6 @@ input[type="text"]:focus {
   box-shadow: 0 0 5px rgba(0, 112, 243, 0.3);
 }
 
-button {
-  padding: 0.5rem 1rem;
-  margin-left: 0.5rem;
-  border: none;
-  border-radius: 8px;
-  background: #0070f3;
-  color: #fff;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-button:hover {
-  background: #005dc1;
-}
-
 /* 列表样式 */
 ul {
   list-style: none;

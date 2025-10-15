@@ -2,6 +2,7 @@
 // @ts-nocheck
   import { onMount } from 'svelte';
 	import favicon from "./assets/favicon.svg";
+  import Checkbox from './lib/Checkbox.svelte';
 
   let Component = $state(null);
   let _404 = $state(false);
@@ -25,10 +26,8 @@
     })();
   });
 
-	const toggleTheme = () => {
-		const currentTheme = document.body.getAttribute("dark-theme");
-		const newTheme = currentTheme === "true" ? "false" : "true";
-		document.body.setAttribute("dark-theme", newTheme);
+	const toggleTheme = (newTheme) => {
+		document.body.setAttribute("dark-theme", newTheme ? "true" : "false");
 		localStorage.setItem("dark-theme", newTheme);
 	};
 
@@ -44,7 +43,12 @@
         </a>
       </div>
     </div>
-		<button class="theme-button" onclick={toggleTheme}>Day/Night</button>
+    <div class="theme-button">
+      <Checkbox 
+        title=""
+        onclick={toggleTheme} 
+        checked={document.body.getAttribute("dark-theme")}/>
+    </div>
 	</header>
 
 	<main class="content">
@@ -60,7 +64,7 @@
 
 <style>
 
-  :global(button) {
+  button {
     background-color: var(--bg-color);
     border: none;
     color: var(--button-text);
@@ -71,7 +75,7 @@
     transition: all 0.2s ease-in-out;
   }
 
-  :global(button:hover) {
+  button:hover {
     transform: scale(1.05);
   }
 
@@ -106,12 +110,8 @@
 
   .theme-button {
     background: none;
-    border: 2px solid transparent;
-    border-color: var(--primary-hover);
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1rem 1;
     margin-right: 1.5rem;
-    cursor: pointer;
     font-size: 1rem;
     transition: 0.2s;
     color: inherit;

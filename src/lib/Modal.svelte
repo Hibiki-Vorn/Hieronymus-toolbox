@@ -33,6 +33,7 @@
     height: 100vh; /* 占满整个视口高度 */
     background: rgba(134, 115, 115, 0.562); /* 半透明黑色背景，可自行调整 */
     z-index: 9999; /* 确保在最上层 */
+    display: inline-block;
 }
 
 .content {
