@@ -1,5 +1,18 @@
 <script>
-    let { checked, onclick, title } = $props();
+
+    import { onMount } from "svelte";
+
+    let { checked, onclick, title, activeContent, inactiveContent } = $props();
+    let _this = {}
+
+    onMount(() => {
+        if (activeContent) {
+            _this.style.setProperty("--active-content", `"${activeContent}"`)
+        }
+        if (inactiveContent) {
+            _this.style.setProperty("--inactive-content", `"${inactiveContent}"`)
+        }
+    })
 
     $effect(() => {
         onclick(checked)
@@ -7,7 +20,7 @@
 
 </script>
 
-<div class="checkbox-container">
+<div class="checkbox-container" bind:this={_this}>
     <span class="fake-title">{title}</span>
     <span class="title">{title}</span>
     <label class="switch">
@@ -18,6 +31,8 @@
 
 <style>
     .checkbox-container {
+        --active-content: "";
+        --inactive-content: "";
         display: inline-block;
         position: relative;
     }
@@ -60,7 +75,7 @@
     }
     .slider::before {
         position: absolute;
-        content: "☀️";
+        content: var(--inactive-content);
         height: 26px;
         width: 26px;
         left: 4px;
@@ -76,6 +91,6 @@
     input:checked + .slider::before {
         transform: translateX(26px);
         background-color: black;
-        content: "🌙";
+        content: var(--active-content);
     }
 </style>

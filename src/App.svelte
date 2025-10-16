@@ -46,6 +46,8 @@
     <div class="theme-button">
       <Checkbox 
         title=""
+        activeContent="🌙"
+        inactiveContent="☀️"
         onclick={toggleTheme} 
         checked={document.body.getAttribute("dark-theme")}/>
     </div>
