@@ -142,18 +142,20 @@ li button:hover {
 /* 响应式 */
 @media (max-width: 600px) {
   input[type="text"] {
-    width: 100%;
-    margin-bottom: 0.5rem;
+    margin-left: 0.5rem;
+    width: 70%;
   }
 
   button {
-    width: 48%;
+    width: 15%;
     margin-left: 0;
   }
 
   div > div {
+    gap: 0.5rem;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    flex-direction: row;
   }
 
   li {
