@@ -71,7 +71,6 @@ div {
   max-width: 500px;
 }
 
-/* 输入框和按钮 */
 input[type="text"] {
   width: 60%;
   padding: 0.5rem 1rem;
@@ -89,7 +88,6 @@ input[type="text"]:focus {
   box-shadow: 0 0 5px rgba(0, 112, 243, 0.3);
 }
 
-/* 列表样式 */
 ul {
   list-style: none;
   padding: 0;
@@ -108,13 +106,11 @@ li {
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-/* hover 效果 */
 li:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* 勾选后的样式 */
 input[type="checkbox"] {
   margin-right: 1rem;
   width: 18px;
@@ -127,7 +123,6 @@ li > input:checked {
   text-decoration: line-through;
 }
 
-/* 删除按钮 */
 li button {
   margin-left: auto;
   border: red 1px solid;
@@ -139,7 +134,6 @@ li button:hover {
   background-color: #fff;
 }
 
-/* 响应式 */
 @media (max-width: 600px) {
   input[type="text"] {
     margin-left: 0.5rem;

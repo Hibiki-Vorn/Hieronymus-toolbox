@@ -1,20 +1,25 @@
 <script>
-  let count = $state(0)
-  const increment = () => {
-    count += 1
-  }
+// @ts-nocheck
+
+    import CounterComponent from "./CounterComponent.svelte";
+
+    let counterList = []
+    let CounterName = ""
+
+    let addCounter = () => {
+        counterList = [...counterList, CounterName]
+        CounterName = ""
+    }
 </script>
 
 <div>
   <h1>Counter</h1>
-  <button onclick={increment}>
-    <h2>count is {count}</h2>
-  </button>
+  <input style="height: 25px;" type="text" name="" placeholder="Enter the Counter's name" bind:value={CounterName}/>
+  <button onclick={addCounter}>Add Counter</button>
+  <hr/>
+  <ul>
+    {#each counterList as item}
+        <li><CounterComponent CounterName={item}/></li>
+    {/each}
+  </ul>
 </div>
-
-<style>
-  h2 {
-    margin: 0;
-    padding: 0;
-  }
-</style>
