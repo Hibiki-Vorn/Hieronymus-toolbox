@@ -10,7 +10,7 @@
   let start = { x: 0, y: 0, width: 0, height: 0, posX: 0, posY: 0 };
   let modalRef = $state(null);
 
-  if (window.innerWidth < 600) {
+  if (window.innerWidth < 768) {
     // @ts-ignore
     size.width = window.innerWidth * 90/100
     // @ts-ignore
