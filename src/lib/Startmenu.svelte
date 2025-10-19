@@ -1,22 +1,49 @@
 <script>
   import Modal from './Modal.svelte';
 
+  import qricon from '../assets/qr.png'
+  import tilisticon from '../assets/list-check.svg'
+  import counter from '../assets/square-1.svg'
+
   export let show = false;
   export let close = null;
 </script>
 
-<div>
-    <Modal show = { show } close={close} title="Select a Tool">
-        <ol>
-            <li><a href="/Counter"> ➕ Counter</a></li>
-            <li><a href="/TodoList"> ✅ TodoList</a></li>
-        </ol>
-    </Modal>
-</div>
+
+<Modal show = { show } close={close} title="Select a Tool">
+    <ol>
+        <li>
+            <a href="/QRcode">
+                <div class="box">
+                    <img src={qricon} alt="">
+                    <p>QR code Generation</p>
+                
+            </div></a>                
+        </li>
+        <li>
+            <a href="/Counter">
+                <div class="box">
+                    <img src={counter} alt="">
+                    <p>Counter</p>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="/TodoList">
+                <div class="box">
+                    <img src={tilisticon} alt="">
+                    <p>TodoList</p>
+                </div>
+            </a>
+        </li>
+    </ol>
+</Modal>
+
 
 <style>
     ol {
         list-style: none;
+        width: 14.9rem;
         padding: 1rem;
         margin: 0;
     }
@@ -33,6 +60,22 @@
 
     a:hover {
         text-decoration: underline;
+    }
+
+    img {
+        border-radius: 10px;
+        height: 50px;
+        width: 50px;
+    }
+
+    .box {
+        background-color: var(--grey);
+        border-radius: 10%;
+        padding: 10%;
+    }
+
+    p {
+        margin: 0;
     }
 
 </style>

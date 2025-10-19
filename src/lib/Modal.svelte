@@ -33,7 +33,7 @@
     z-index: 9999;
     position: fixed;
     display: inline-block;
-    background: rgba(134, 115, 115, 0.562);
+    background: var(--grey);
 }
 
 .content {
@@ -54,6 +54,7 @@
     margin: 15px;
     cursor: pointer;
     position: absolute;
+    background: transparent;
 }
 
 .header > .title {

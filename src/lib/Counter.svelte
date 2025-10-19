@@ -23,3 +23,10 @@
     {/each}
   </ul>
 </div>
+
+<style>
+  input[type="text"] {
+    background: var(--bg-color);
+    color: var(--text-color);
+  }
+</style>

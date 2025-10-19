@@ -10,6 +10,7 @@
 
   const LazyComponentRouterList = {
     '/': () => import('./lib/Index.svelte'),
+    '/QRcode': () => import('./lib/Qrcode.svelte'),
     '/Counter': () => import('./lib/Counter.svelte'),
     '/TodoList': () => import('./lib/Todolist.svelte'),
   };
