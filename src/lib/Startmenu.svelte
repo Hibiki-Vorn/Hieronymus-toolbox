@@ -54,7 +54,7 @@
 
     a {
         text-decoration: none;
-        color: var(--primary-color);
+        color: var(--text-color);
         font-size: 1.2rem;
     }
 
@@ -70,7 +70,7 @@
 
     .box {
         background-color: var(--grey);
-        border-radius: 10%;
+        border-radius: 15px;
         padding: 10%;
     }
 
