@@ -1,9 +1,90 @@
 <script>
 // @ts-nocheck
+import { onMount } from 'svelte';
+import Checkbox from './lib/Checkbox.svelte';
+import Window from './lib/Window.svelte';
+import { pages, routes } from './miniApp_list';
+
+let Component = $state(null);
+let icon = $state(null);
+let _404 = $state(false);
+let _404_message = $state("");
+
+onMount(() => {
+  (async function loadComponent() {
+    const path = window.location.pathname.replace(/-./g, m => m[1].toUpperCase()); // 路由驼峰
+    const loader = routes[path]
+
+    const pageInfo = pages.find(p => p.router.replace(/-./g, m => m[1].toUpperCase()) === path)
+
+    if (!loader) {
+      _404 = true;
+      _404_message = `Component for path "${window.location.pathname}" not found.`;
+      return;
+    }
+
+    try {
+      const module = await loader();
+      Component = module.default;
+      const iconModule = await pageInfo.icon();
+      icon = iconModule.default || iconModule;
+    } catch (error) {
+      _404 = true;
+      _404_message = `Error loading component for path "${window.location.pathname}"`;
+    }
+  })();
+});
+
+const toggleTheme = (newTheme) => {
+  document.body.setAttribute("dark-theme", newTheme ? "true" : "false");
+  localStorage.setItem("dark-theme", newTheme);
+};
+</script>
+
+<header class="navbar">
+  <div class="left-group">
+    <div class="mobile-hidden">
+      <a href="/?showMenu=true">
+        <button class="brand">
+          <div class="minilogo"></div> Tool Box
+        </button>
+      </a>
+    </div>
+  </div>
+  <div class="theme-button">
+    <Checkbox 
+      title=""
+      activeContent="🌙"
+      inactiveContent="☀️"
+      onclick={toggleTheme} 
+      checked={document.body.getAttribute("dark-theme")}/>
+  </div>
+</header>
+
+<main class="content">
+  {#if Component}
+    {#if window.location.pathname === "/"}
+      <Component/>
+    {:else}
+      <Window icon={icon} title={window.location.pathname.slice(1)} show={true} mask={false} close={()=>{window.location.pathname = "/"}}>
+        <Component/>
+      </Window>
+    {/if}
+  {/if}
+
+  {#if _404}
+    <h1>404 Not Found</h1>
+    <p>{_404_message}</p>
+  {/if}
+</main>
+
+<!--<script>
+// @ts-nocheck
   import { onMount } from 'svelte';
 	import favicon from "./assets/favicon.svg";
   import Checkbox from './lib/Checkbox.svelte';
   import Window from './lib/Window.svelte';
+  import miniApp_list from './miniApp_list';
 
   let Component = $state(null);
   let _404 = $state(false);
@@ -15,7 +96,7 @@
     '/Barcode': () => import('./lib/Barcode.svelte'),
     '/Counter': () => import('./lib/Counter.svelte'),
     '/TodoList': () => import('./lib/Todolist.svelte'),
-  };
+  }
 
   onMount(() => {
     (async function loadComponent() {
@@ -61,7 +142,7 @@
       {#if window.location.pathname === "/"}
       <Component/>
       {:else}
-      <Window title="" show={true} mask={false} close = {()=>{window.location.pathname = "/"}}>
+      <Window title={window.location.pathname.slice(1)} show={true} mask={false} close = {()=>{window.location.pathname = "/"}}>
         <Component/>
       </Window>
       {/if}
@@ -72,7 +153,7 @@
       <p>{_404_message}</p>
     {/if}
 	</main>
-</div>
+</div>-->
 
 <style>
 

@@ -1,14 +1,22 @@
 <script>
-  const { show = false, close = () => {}, title = "Title", children } = $props();
+  const { show = false, icon = null , close = () => {}, title = "Title", children } = $props();
 
   let pos = $state({ x: 0, y: 0 });
-  let size = $state({ width: 400, height: 300 });
+  let size = $state({ width: 400, height: 400 });
   let offset = { x: 0, y: 0 };
   let dragging = false;
   let resizing = false;
   let resizeDir = "";
   let start = { x: 0, y: 0, width: 0, height: 0, posX: 0, posY: 0 };
   let modalRef = $state(null);
+
+  if (window.innerWidth < 600) {
+    // @ts-ignore
+    size.width = window.innerWidth * 90/100
+    // @ts-ignore
+    size.height = window.innerHeight  * 82/100
+    
+  }
 
   function handleMouseDown(event) {
     dragging = true;
@@ -100,7 +108,12 @@
     
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div class="header" onmousedown={handleMouseDown}>
-      <span class="title">{title}</span>
+      <span class="title">
+        {#if icon}
+          <img src={icon} alt="icon" class="window-icon"/>
+        {/if}
+        {title}
+      </span>
       <button onclick={ondestroy}>❌</button>
     </div>
     <hr />
@@ -141,6 +154,13 @@
     user-select: none;
   }
 
+  .window-icon {
+    height: 1.5rem;
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+  }
+
   .header {
     height: 2rem;
     user-select: none;
@@ -149,6 +169,9 @@
 
   .header > .title {
     float: left;
+    margin-top: 0.5rem;
+    margin-left: 2.5rem;
+    background: none;
     font-weight: bold;
   }
 
@@ -226,4 +249,6 @@
   .resize-handle:hover {
     background: rgba(0, 0, 0, 0.05);
   }
+
+  
 </style>

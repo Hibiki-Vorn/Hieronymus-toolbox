@@ -5,6 +5,10 @@
   let showMenu = $state(false);
 
   let setMenu = () => { showMenu = !showMenu };
+  $effect(()=>{
+    const params = new URLSearchParams(window.location.search);
+    showMenu = ( params.get('showMenu') === "true")
+  })
 
 </script>
 

@@ -1,53 +1,47 @@
 <script>
-  import Modal from './Modal.svelte';
+// @ts-nocheck
 
-  import qricon from '../assets/qr.png'
-  import baricon from '../assets/barcode.svg';
-  import tilisticon from '../assets/list-check.svg'
-  import counter from '../assets/square-1.svg'
+  import Modal from './Modal.svelte';
+  import { pages } from '../miniApp_list.js';
+  import { onMount } from 'svelte';
 
   export let show = false;
   export let close = null;
+
+  let loadedPages = [];
+
+  const showMenu = ( new URLSearchParams(window.location.search) ).get('showMenu') === "true"
+
+  onMount(async () => {
+    loadedPages = await Promise.all(
+      pages.map(async page => {
+        const iconModule = await page.icon();
+        return { ...page, iconUrl: iconModule.default };
+      })
+    )
+
+    if (!showMenu) {
+      loadedPages.shift()
+    }else {
+      close = () => window.location.href = "/"
+    }
+  })
 </script>
 
-
-<Modal show = { show } close={close} title="Select a Tool">
-    <ol>
-        <li>
-            <a href="/Counter">
-                <div class="box">
-                    <img src={counter} alt="">
-                    <p>Counter</p>
-                </div>
-            </a>
-        </li>
-        <li>
-            <a href="/TodoList">
-                <div class="box">
-                    <img src={tilisticon} alt="">
-                    <p>Todo List</p>
-                </div>
-            </a>
-        </li>
-        <li>
-            <a href="/QRcode">
-                <div class="box">
-                    <img src={qricon} alt="">
-                    <p>QR code Generation</p>
-                
-            </div></a>                
-        </li>
-        <li>
-            <a href="/Barcode">
-                <div class="box">
-                    <img src={baricon} alt="">
-                    <p>Bar Code Generation</p>
-                </div>
-            </a>
-        </li>
-    </ol>
+<Modal show={show} close={close} title="Select a Tool">
+  <ol>
+    {#each loadedPages as page}
+      <li>
+        <a href={page.router}>
+          <div class="box">
+            <img src={page.iconUrl} alt={page.name} />
+            <p>{page.name}</p>
+          </div>
+        </a>
+      </li>
+    {/each}
+  </ol>
 </Modal>
-
 
 <style>
     ol {
