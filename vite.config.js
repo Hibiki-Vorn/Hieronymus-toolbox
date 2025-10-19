@@ -18,7 +18,7 @@ export default defineConfig({
         display: "standalone",
         orientation: "portrait",
         description: "A compact toolbox for creative and technical tasks by Hieronymus.",
-        background_color: "#ffffff",
+        background_color: "#000000",
         theme_color: "#000000",
         icons: [
           {
