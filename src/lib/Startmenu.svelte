@@ -2,6 +2,7 @@
   import Modal from './Modal.svelte';
 
   import qricon from '../assets/qr.png'
+  import baricon from '../assets/barcode.svg';
   import tilisticon from '../assets/list-check.svg'
   import counter from '../assets/square-1.svg'
 
@@ -12,14 +13,6 @@
 
 <Modal show = { show } close={close} title="Select a Tool">
     <ol>
-        <li>
-            <a href="/QRcode">
-                <div class="box">
-                    <img src={qricon} alt="">
-                    <p>QR code Generation</p>
-                
-            </div></a>                
-        </li>
         <li>
             <a href="/Counter">
                 <div class="box">
@@ -32,7 +25,23 @@
             <a href="/TodoList">
                 <div class="box">
                     <img src={tilisticon} alt="">
-                    <p>TodoList</p>
+                    <p>Todo List</p>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="/QRcode">
+                <div class="box">
+                    <img src={qricon} alt="">
+                    <p>QR code Generation</p>
+                
+            </div></a>                
+        </li>
+        <li>
+            <a href="/Barcode">
+                <div class="box">
+                    <img src={baricon} alt="">
+                    <p>Bar Code Generation</p>
                 </div>
             </a>
         </li>
@@ -43,7 +52,7 @@
 <style>
     ol {
         list-style: none;
-        width: 14.9rem;
+        width: 15em;
         padding: 1rem;
         margin: 0;
     }

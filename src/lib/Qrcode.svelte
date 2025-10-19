@@ -5,7 +5,7 @@
     let img = null
     let content = ""
     let conf = {
-        width: 600,
+        width: window.innerWidth > 700 ? 600 : 300,
         margin: 1,
         color: {
             dark: "#000",
@@ -60,6 +60,7 @@
                 <input bind:value={conf.scale} type="number" name="scale" id="">
             </li>
             <li>
+                <br/>
                 <button onclick={generate}>Generate QRcode</button>
             </li>
         </ol>
@@ -83,10 +84,23 @@
 
     li{
         text-align: left;
+        overflow: hidden;
     }
 
     input, textarea {
         background: var(--bg-color);
         color: var(--text-color);
+    }
+
+    textarea {
+        width: 96%;
+    }
+
+    label {
+        float: left;
+    }
+
+    input, select {
+        float: right;
     }
 </style>

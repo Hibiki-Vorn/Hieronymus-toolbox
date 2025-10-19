@@ -1,72 +1,120 @@
 <script>
-    export let show = false;
-    export let close = null;
-    export let title = "Title";
+    const { show = false, close = () => {}, title = "Title", children } = $props();
+
+    let pos = $state({ x: 0, y: 0 });
+    let offset = { x: 0, y: 0 };
+    let dragging = false;
+    let modalRef = $state(null)
+
+    function handleMouseDown(event) {
+        dragging = true;
+        offset.x = event.clientX - pos.x;
+        offset.y = event.clientY - pos.y;
+        window.addEventListener('mousemove', handleMouseMove);
+        window.addEventListener('mouseup', handleMouseUp);
+    }
+
+    function handleMouseMove(event) {
+        if (dragging) {
+        pos.x = event.clientX - offset.x;
+        pos.y = event.clientY - offset.y;
+        }
+    }
+
+    function handleMouseUp() {
+        dragging = false;
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mouseup', handleMouseUp);
+    }
+
+    $effect(()=>{
+        if (show && modalRef) {
+            modalRef.focus();
+        }
+    })
 
 </script>
 
 {#if show}
-<div class="mask">
-    <div class="content">
-        <div class="header">
+    <div class="mask">
+        <div
+        class="content"
+        bind:this={modalRef}
+        role="dialog"
+        tabindex="0"
+        style="transform: translate(calc(-50% + {pos.x}px), calc(-50% + {pos.y}px));"
+        >
+        <div role="dialog" tabindex="0" class="header" onmousedown={handleMouseDown}>
             <span class="title">{title}</span>
-            {#if close === null}
-                <button onclick={()=>{}}>X</button>
-            {:else}
-                <button onclick={close}>❌</button>
-            {/if}
+            <button onclick={()=>{close()}}>❌</button>
         </div>
-        <hr/>
-            <slot></slot>
-
+        <hr />
+        <div class="container">
+            {@render children?.()}
+        </div>
+        </div>
     </div>
-    
-</div>
 {/if}
+
 <style>
+    .mask {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999;
+        background: var(--grey, rgba(0, 0, 0, 0.5));
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-.mask {
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 9999;
-    position: fixed;
-    display: inline-block;
-    background: var(--grey);
-}
+    .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        padding: 10px;
+        border-radius: 20px;
+        background-color: var(--bg-color, white);
+        min-width: 300px;
+        max-width: 80vw;
+        max-height: 80vh;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
 
-.content {
-    top: 50%;
-    left: 50%;
-    padding: 10px;
-    position: absolute;
-    border-radius: 20px;
-    display: inline-block;
-    transform: translate(-50%, -50%);
-    background-color: var(--bg-color);
-}
+    .header {
+        height: 2rem;
+        user-select: none;
+        cursor: move;
+        position: relative;
+        overflow: hidden;
+    }
 
-.header > button {
-    top: 0;
-    right: 0;
-    padding: 0;
-    margin: 15px;
-    cursor: pointer;
-    position: absolute;
-    background: transparent;
-}
+    .header > .title {
+        float: left;
+        font-weight: bold;
+    }
 
-.header > .title {
-    top: 0;
-    left: 0;
-    margin: 15px;
-    cursor: pointer;
-    position: absolute;
-}
+    .header > button {
+        float: right;
+        background: transparent;
+        margin: 0;
+        padding: 0;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+    }
 
-.header {
-    height: 2rem;
-    display: block;
-}
+    .header > button:hover {
+        font-size: 1.2rem;
+    }
+
+    .container {
+        max-height: calc(80vh - 60px);
+        align-items: center;
+        overflow: auto;
+        padding: 10px;
+    }
 </style>

@@ -12,6 +12,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  scrollbar-width: 20px; /* 可选值：auto, thin, none */
+  scrollbar-color: #888888c0 #ffffff; /* 滑块颜色 + 轨道颜色 */
+}
 
 body[dark-theme="false"] {
     --bg-color: #fafafa;

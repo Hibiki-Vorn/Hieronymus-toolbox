@@ -3,6 +3,7 @@
   import { onMount } from 'svelte';
 	import favicon from "./assets/favicon.svg";
   import Checkbox from './lib/Checkbox.svelte';
+  import Window from './lib/Window.svelte';
 
   let Component = $state(null);
   let _404 = $state(false);
@@ -11,6 +12,7 @@
   const LazyComponentRouterList = {
     '/': () => import('./lib/Index.svelte'),
     '/QRcode': () => import('./lib/Qrcode.svelte'),
+    '/Barcode': () => import('./lib/Barcode.svelte'),
     '/Counter': () => import('./lib/Counter.svelte'),
     '/TodoList': () => import('./lib/Todolist.svelte'),
   };
@@ -56,8 +58,15 @@
 
 	<main class="content">
     {#if Component}
+      {#if window.location.pathname === "/"}
       <Component/>
+      {:else}
+      <Window title="" show={true} mask={false} close = {()=>{window.location.pathname = "/"}}>
+        <Component/>
+      </Window>
+      {/if}
     {/if}
+
     {#if _404}
       <h1>404 Not Found</h1>
       <p>{_404_message}</p>
