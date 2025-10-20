@@ -178,6 +178,8 @@
   .header > button {
     float: right;
     background: transparent;
+    padding: 6px;
+    margin-right: 2px;
     border: none;
     cursor: pointer;
     font-size: 1rem;

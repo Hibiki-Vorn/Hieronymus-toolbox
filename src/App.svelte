@@ -4,17 +4,22 @@ import { onMount } from 'svelte';
 import Checkbox from './lib/Checkbox.svelte';
 import Window from './lib/Window.svelte';
 import { pages, routes } from './miniApp_list';
+import Index from './lib/Index.svelte';
+import Startmenu from './lib/Startmenu.svelte';
 
-let Component = $state(null);
-let icon = $state(null);
+let Components = $state([]);
+let icon = $state([]);
+let title = $state([]);
+let key = 0;
 let _404 = $state(false);
 let _404_message = $state("");
+let showMenu = $state(false)
 let lightTheme = $state(window.localStorage.getItem("lightMode"))
 
 const toggleTheme = (newTheme) => {
   const theme = newTheme.toString()
   window.localStorage.setItem("lightMode", theme)
-  lightTheme = ( window.localStorage.getItem("lightMode") === "true")
+  lightTheme = ( window.localStorage.getItem("lightMode") === "true" )
   document.body.dataset.lightTheme = lightTheme.toString()
   return newTheme
 }
@@ -23,40 +28,39 @@ window.addEventListener("load", () => {
   toggleTheme(window.localStorage.getItem("lightMode"))
 })
 
-onMount(() => {
-  (async () => {
-    const path = window.location.pathname.replace(/-./g, m => m[1].toUpperCase());
-    const loader = routes[path]
+async function loadComponent(p) {
 
-    const pageInfo = pages.find(p => p.router.replace(/-./g, m => m[1].toUpperCase()) === path)
+    const loader = p.source
 
     if (!loader) {
-      _404 = true;
-      _404_message = `Component for path "${window.location.pathname}" not found.`;
       return;
     }
 
     try {
       const module = await loader();
-      Component = module.default;
-      const iconModule = await pageInfo.icon();
-      icon = iconModule.default || iconModule;
+      const iconModule = await p.icon();
+      let component = {
+        id: key,
+        content: module.default,
+        icon: iconModule.default,
+        title: p.name
+      }
+      key++
+      Components = [... Components, component]
+      window.component = Components
     } catch (error) {
       _404 = true;
-      _404_message = `Error loading component for path "${window.location.pathname}"`;
+      _404_message = "Error loading component ";
     }
-  })();
-})
+  }
 </script>
 
 <header class="navbar">
   <div class="left-group">
     <div class="mobile-hidden">
-      <a href="/?showMenu=true">
-        <button class="brand">
-          <div class="minilogo"></div> Tool Box
-        </button>
-      </a>
+      <button class="brand" onclick={()=>{showMenu=true}}>
+        <div class="minilogo"></div> Tool Box
+      </button>
     </div>
   </div>
   <div class="theme-button">
@@ -69,21 +73,16 @@ onMount(() => {
       checked={window.localStorage.getItem("lightMode") !== "true"}/>
   </div>
 </header>
-
+<Startmenu show={showMenu} close={()=>{showMenu = false}} popup={(r)=>{loadComponent(r)}}/>
 <main class="content">
-  {#if Component}
-    {#if window.location.pathname === "/"}
-      <Component/>
-    {:else}
-      <Window icon={icon} title={window.location.pathname.slice(1)} show={true} mask={false} close={()=>{window.location.pathname = "/"}}>
-        <Component/>
-      </Window>
-    {/if}
-  {/if}
-
-  {#if _404}
-    <h1>404 Not Found</h1>
-    <p>{_404_message}</p>
+  {#if Components.length !== 0}
+    {#each Components as Component, index (Component.id)}
+    <Window icon={Component.icon} title={Component.title} show={true} mask={false} close={()=>{Components = Components.filter((_, i) => i !== index)}}>
+      <Component.content/>
+    </Window>
+    {/each}
+  {:else}
+    <Index/>
   {/if}
 </main>
 

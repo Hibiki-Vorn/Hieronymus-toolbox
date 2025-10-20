@@ -5,10 +5,9 @@
   import { pages } from '../miniApp_list.js';
   import { onMount } from 'svelte';
 
-  export let show = false;
-  export let close = null;
+  let { show = false, close = ()=>{}, popup=()=>{}} = $props()
 
-  let loadedPages = [];
+  let loadedPages = $state([]);
 
   const showMenu = ( new URLSearchParams(window.location.search) ).get('showMenu') === "true"
 
@@ -19,25 +18,21 @@
         return { ...page, iconUrl: iconModule.default };
       })
     )
-
-    if (!showMenu) {
-      loadedPages.shift()
-    }else {
-      close = () => window.location.href = "/"
-    }
   })
 </script>
 
 <Modal show={show} close={close} title="Select a Tool">
   <ol>
     {#each loadedPages as page}
-      <li>
-        <a href={page.router}>
-          <div class="box">
-            <img src={page.iconUrl} alt={page.name} />
-            <p>{page.name}</p>
-          </div>
-        </a>
+      <!-- svelte-ignore a11y_click_events_have_key_events -->
+      <!-- svelte-ignore a11y_no_static_element_interactions -->
+      <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+      <li onclick={()=>{popup(page);close()}}>
+        <div class="box">
+          <img src={page.iconUrl} alt={page.name} />
+          <p>{page.name}</p>
+        </div>
+        
       </li>
     {/each}
   </ol>
@@ -52,16 +47,13 @@
     }
 
     li {
-        margin: 0.5rem 0;
-    }
-
-    a {
         text-decoration: none;
         color: var(--text-color);
+        margin: 0.5rem 0;
         font-size: 1.2rem;
     }
 
-    a:hover {
+    li:hover {
         text-decoration: underline;
     }
 
