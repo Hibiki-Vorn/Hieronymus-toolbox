@@ -9,10 +9,23 @@ let Component = $state(null);
 let icon = $state(null);
 let _404 = $state(false);
 let _404_message = $state("");
+let lightTheme = $state(window.localStorage.getItem("lightMode"))
+
+const toggleTheme = (newTheme) => {
+  const theme = newTheme.toString()
+  window.localStorage.setItem("lightMode", theme)
+  lightTheme = ( window.localStorage.getItem("lightMode") === "true")
+  document.body.dataset.lightTheme = lightTheme.toString()
+  return newTheme
+}
+
+window.addEventListener("load", () => {
+  toggleTheme(window.localStorage.getItem("lightMode"))
+})
 
 onMount(() => {
-  (async function loadComponent() {
-    const path = window.location.pathname.replace(/-./g, m => m[1].toUpperCase()); // 路由驼峰
+  (async () => {
+    const path = window.location.pathname.replace(/-./g, m => m[1].toUpperCase());
     const loader = routes[path]
 
     const pageInfo = pages.find(p => p.router.replace(/-./g, m => m[1].toUpperCase()) === path)
@@ -33,12 +46,7 @@ onMount(() => {
       _404_message = `Error loading component for path "${window.location.pathname}"`;
     }
   })();
-});
-
-const toggleTheme = (newTheme) => {
-  document.body.setAttribute("dark-theme", newTheme ? "true" : "false");
-  localStorage.setItem("dark-theme", newTheme);
-};
+})
 </script>
 
 <header class="navbar">
@@ -56,8 +64,9 @@ const toggleTheme = (newTheme) => {
       title=""
       activeContent="🌙"
       inactiveContent="☀️"
+      activedBackgroundcolor="black"
       onclick={toggleTheme} 
-      checked={document.body.getAttribute("dark-theme")}/>
+      checked={window.localStorage.getItem("lightMode") !== "true"}/>
   </div>
 </header>
 
@@ -77,83 +86,6 @@ const toggleTheme = (newTheme) => {
     <p>{_404_message}</p>
   {/if}
 </main>
-
-<!--<script>
-// @ts-nocheck
-  import { onMount } from 'svelte';
-	import favicon from "./assets/favicon.svg";
-  import Checkbox from './lib/Checkbox.svelte';
-  import Window from './lib/Window.svelte';
-  import miniApp_list from './miniApp_list';
-
-  let Component = $state(null);
-  let _404 = $state(false);
-  let _404_message = $state("");
-
-  const LazyComponentRouterList = {
-    '/': () => import('./lib/Index.svelte'),
-    '/QRcode': () => import('./lib/Qrcode.svelte'),
-    '/Barcode': () => import('./lib/Barcode.svelte'),
-    '/Counter': () => import('./lib/Counter.svelte'),
-    '/TodoList': () => import('./lib/Todolist.svelte'),
-  }
-
-  onMount(() => {
-    (async function loadComponent() {
-      try {
-        const module = await LazyComponentRouterList[window.location.pathname]();
-        Component = module.default;
-      } catch (error) {
-        _404 = true;
-        _404_message = `Component for path "${window.location.pathname}" not found.`;
-      }
-    })();
-  });
-
-	const toggleTheme = (newTheme) => {
-		document.body.setAttribute("dark-theme", newTheme ? "true" : "false");
-		localStorage.setItem("dark-theme", newTheme);
-	};
-
-</script>
-
-<div>
-
-	<header class="navbar">
-		<div class="left-group">
-			<div class="mobile-hidden">
-        <a href="/">
-          <button class="brand"><div class="minilogo"></div> Tool Box</button>
-        </a>
-      </div>
-    </div>
-    <div class="theme-button">
-      <Checkbox 
-        title=""
-        activeContent="🌙"
-        inactiveContent="☀️"
-        onclick={toggleTheme} 
-        checked={document.body.getAttribute("dark-theme")}/>
-    </div>
-	</header>
-
-	<main class="content">
-    {#if Component}
-      {#if window.location.pathname === "/"}
-      <Component/>
-      {:else}
-      <Window title={window.location.pathname.slice(1)} show={true} mask={false} close = {()=>{window.location.pathname = "/"}}>
-        <Component/>
-      </Window>
-      {/if}
-    {/if}
-
-    {#if _404}
-      <h1>404 Not Found</h1>
-      <p>{_404_message}</p>
-    {/if}
-	</main>
-</div>-->
 
 <style>
 

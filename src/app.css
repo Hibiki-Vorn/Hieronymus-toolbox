@@ -17,7 +17,7 @@
   scrollbar-color: #888888c0 #ffffff; /* 滑块颜色 + 轨道颜色 */
 }
 
-body[dark-theme="false"] {
+body[data-light-theme="true"] {
     --bg-color: #fafafa;
     --text-color: #333;
     --primary-color: #007bff;
@@ -33,7 +33,7 @@ body[dark-theme="false"] {
     --grey: rgba(128, 128, 128, 0.568);
   }
 
-  body[dark-theme="true"] {
+  body[data-light-theme="false"] {
     --bg-color: #121212;
     --text-color: #e0e0e0;
     --primary-color: #007bff;
