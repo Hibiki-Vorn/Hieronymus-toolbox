@@ -1,12 +1,6 @@
 // miniApp_list.js
 export const pages = [
   {
-    name: "Home",
-    icon: () => import('./assets/favicon.svg'),
-    router: "/",
-    source: () => import('./lib/Index.svelte'),
-  },
-  {
     name: "Counter",
     icon: () => import('./assets/square-1.svg'),
     router: "/Counter",
