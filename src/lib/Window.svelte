@@ -189,6 +189,8 @@
     height: calc(100% - 3rem);
     overflow: auto;
     padding: 10px;
+    align-items: center;
+    align-content: center;
   }
 
   /* 边缘拖拽区样式 */

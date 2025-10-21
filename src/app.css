@@ -33,30 +33,30 @@ body[data-light-theme="true"] {
     --grey: rgba(128, 128, 128, 0.568);
   }
 
-  body[data-light-theme="false"] {
-    --bg-color: #121212;
-    --text-color: #e0e0e0;
-    --primary-color: #007bff;
-    --primary-hover: #3399ff;
-    --button-text: white;
-    --navbar-bg: #1e1e1e;
-    --navbar-shadow: rgba(0, 0, 0, 0.5);
-    --content-bg: #1e1e1e;
-    --content-shadow: rgba(0, 0, 0, 0.4);
-    --link-hover-bg: rgba(0, 123, 255, 0.15);
-    --logo-gradient-start: rgba(51, 153, 255, 0.3);
-    --logo-gradient-end: rgba(51, 153, 255, 0);
-    --grey: rgba(128, 128, 128, 0.568);
-  }
+body[data-light-theme="false"] {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --primary-color: #007bff;
+  --primary-hover: #3399ff;
+  --button-text: white;
+  --navbar-bg: #1e1e1e;
+  --navbar-shadow: rgba(0, 0, 0, 0.5);
+  --content-bg: #1e1e1e;
+  --content-shadow: rgba(0, 0, 0, 0.4);
+  --link-hover-bg: rgba(0, 123, 255, 0.15);
+  --logo-gradient-start: rgba(51, 153, 255, 0.3);
+  --logo-gradient-end: rgba(51, 153, 255, 0);
+  --grey: rgba(128, 128, 128, 0.568);
+}
 	
 
-  body {
-    margin: 0;
-    font-family: system-ui, sans-serif;
-    background: var(--bg-color);
-    color: var(--text-color);
-    transition: background 0.3s, color 0.3s;
-  }
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: background 0.3s, color 0.3s;
+}
 
 
 a {

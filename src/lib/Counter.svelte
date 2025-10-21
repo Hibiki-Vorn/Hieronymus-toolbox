@@ -29,4 +29,7 @@
     background: var(--bg-color);
     color: var(--text-color);
   }
+  button {
+    background: #0070f3;
+  }
 </style>

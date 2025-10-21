@@ -1,10 +1,13 @@
 <script>
+// @ts-nocheck
+
 	import favicon from "../assets/favicon.svg";
   import Startmenu from "./Startmenu.svelte";
 
   let showMenu = $state(false);
 
-  let setMenu = () => { showMenu = !showMenu };
+  const { setMenu = () => {} } = $props();
+
 
 </script>
 

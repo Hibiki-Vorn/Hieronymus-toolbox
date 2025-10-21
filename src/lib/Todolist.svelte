@@ -39,7 +39,7 @@
   });
 </script>
 
-<div>
+<div class="contain">
   <h1>This is a ToDo list</h1>
   <div>
     <input
@@ -48,7 +48,7 @@
       bind:value={textContent}
       onkeydown={(e) => e.key === "Enter" && increment()}
     />
-    <button onclick={increment}>Add</button>
+    <button class="add" onclick={increment}>Add</button>
   </div>
   <ul>
     {#each list as { text, checked }, index (text)}
@@ -65,14 +65,24 @@
 </div>
 
 <style>
+.contain {
+  width: 100%;
+  align-self: center;
+  align-items: center;
+  margin: auto;
+}
 
 div {
   width: 100%;
   max-width: 500px;
 }
 
+.add {
+  background-color: #0070f3;
+}
+
 input[type="text"] {
-  width: 60%;
+  width: 50%;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   border: 1px solid #ccc;
@@ -141,6 +151,7 @@ li button:hover {
   }
 
   button {
+    background: #0070f3;
     width: 15%;
     margin-left: 0;
   }

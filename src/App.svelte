@@ -82,14 +82,13 @@ async function loadComponent(p) {
     </Window>
     {/each}
   {:else}
-    <Index/>
+    <Index setMenu={()=>{showMenu=true}}/>
   {/if}
 </main>
 
 <style>
 
   button {
-    background-color: var(--bg-color);
     border: none;
     color: var(--button-text);
     padding: 0.8rem 1.5rem;
