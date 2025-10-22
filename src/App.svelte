@@ -127,6 +127,7 @@ async function loadComponent(p) {
   .brand {
     font-weight: bold;
     color: var(--text-color);
+    background-color: var(--bg-color);
     font-size: 1.2rem;
   }
 

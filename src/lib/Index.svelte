@@ -55,23 +55,6 @@
     transform: scale(1.05);
   }
 
-
-  :global(button) {
-    background-color: var(--bg-color);
-    border: none;
-    color: var(--button-text);
-    padding: 0.8rem 1.5rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: all 0.2s ease-in-out;
-  }
-
-  :global(button:hover) {
-    transform: scale(1.05);
-  }
-
-
   .welcome img {
     width: clamp(80px, 20vw, 200px);
     margin-bottom: 1rem;

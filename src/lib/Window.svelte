@@ -191,6 +191,7 @@
     padding: 10px;
     align-items: center;
     align-content: center;
+    overflow: auto;
   }
 
   /* 边缘拖拽区样式 */

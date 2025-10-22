@@ -51,6 +51,9 @@
     <button class="add" onclick={increment}>Add</button>
   </div>
   <ul>
+    {#if list.length === 0}
+      <li>You have no counter yet</li>
+    {/if}
     {#each list as { text, checked }, index (text)}
       <li animate:flip>
         <input
@@ -151,7 +154,6 @@ li button:hover {
   }
 
   button {
-    background: #0070f3;
     width: 15%;
     margin-left: 0;
   }

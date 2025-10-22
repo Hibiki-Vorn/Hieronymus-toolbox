@@ -19,8 +19,11 @@
   <hr/>
   <ul>
     {#each counterList as item}
-        <li><CounterComponent CounterName={item}/></li>
+      <li><CounterComponent CounterName={item}/></li>
     {/each}
+    {#if counterList.length === 0}
+      <li>You have no counter yet</li>
+    {/if}
   </ul>
 </div>
 
@@ -28,8 +31,5 @@
   input[type="text"] {
     background: var(--bg-color);
     color: var(--text-color);
-  }
-  button {
-    background: #0070f3;
   }
 </style>
