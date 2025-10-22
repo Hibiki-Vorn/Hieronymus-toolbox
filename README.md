@@ -2,4 +2,4 @@
 
 This project created by vite+svelte
 
-I will depoly this by Cloudflare pages in a few weeks.
+I have depolied this in (Cloudflare pages)[https://hieronymus-toolbox.pages.dev/]
