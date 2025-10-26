@@ -52,7 +52,7 @@
   </div>
   <ul>
     {#if list.length === 0}
-      <li>You have no counter yet</li>
+      <li>You have no item yet</li>
     {/if}
     {#each list as { text, checked }, index (text)}
       <li animate:flip>
