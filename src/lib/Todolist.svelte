@@ -5,10 +5,19 @@
   let list = $state(window.localStorage.getItem("todolist") ? JSON.parse(window.localStorage.getItem("todolist")) : []);
 
   const increment = () => {
-    if (textContent.trim()) {
-      list.push({ text: textContent.trim(), checked: false });
-      textContent = "";
+    if (textContent === "") {
+      alert(`${textContent} cannot be empty`)
+      return;
     }
+
+    if (list.some(item => item.text === textContent)) {
+      alert(`${textContent} has already exsit`)
+      return;
+    }
+
+    list.push({ text: textContent, checked: false });
+    textContent = "";
+
   };
 
   const decrement = (index) => {
@@ -29,13 +38,10 @@
   };
 
   $effect(() => {
-    for (let i = 0; i < list.length; i++) {
-      if (list[i].checked) {
-        sortList(list);
-        break;
-      }
+    if (list.some(item => item.checked)) {
+      sortList(list)
+      window.localStorage.setItem("todolist", JSON.stringify(list))
     }
-    window.localStorage.setItem("todolist", JSON.stringify(list));
   });
 </script>
 
@@ -50,21 +56,21 @@
     />
     <button class="add" onclick={increment}>Add</button>
   </div>
-  <ul>
+  <div class="container">
     {#if list.length === 0}
-      <li>You have no item yet</li>
+      <span>You have no item yet</span>
     {/if}
     {#each list as { text, checked }, index (text)}
-      <li animate:flip>
+      <span animate:flip class="item">
         <input
           type="checkbox"
           bind:checked={list[index].checked}
         />
-        {text}
+        <span class="text">{text}</span>
         <button onclick={() => decrement(index)}>❌</button>
-      </li>
+      </span>
     {/each}
-  </ul>
+  </div>
 </div>
 
 <style>
@@ -84,8 +90,12 @@ div {
   background-color: #0070f3;
 }
 
+.text {
+  overflow: auto;
+}
+
 input[type="text"] {
-  width: 50%;
+  width: 60%;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   border: 1px solid #ccc;
@@ -101,48 +111,50 @@ input[type="text"]:focus {
   box-shadow: 0 0 5px rgba(0, 112, 243, 0.3);
 }
 
-ul {
+.container {
   list-style: none;
   padding: 0;
   margin-top: 1rem;
   color: var(--text-color);
 }
 
-li {
+.item {
   margin-bottom: 0.5rem;
-  padding: 0.75rem 2.4rem;
-  display: flex;
-  align-items: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   border-radius: 12px;
   border-bottom: var(--bg-color) 1px solid;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
   transition: transform 0.2s, box-shadow 0.2s;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 0.5rem;
 }
 
-li:hover {
+.item:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 input[type="checkbox"] {
-  margin-right: 1rem;
+  margin-right: 0;
   width: 18px;
   height: 18px;
   cursor: pointer;
 }
 
-li > input:checked {
+.item > input:checked {
   opacity: 0.6;
   text-decoration: line-through;
 }
 
-li button {
+.item button {
   margin-left: auto;
   border: red 1px solid;
   background-color: #fff;
 }
 
-li button:hover {
+.item button:hover {
   box-shadow: #ff2600 0px 0px 8px 0px;
   background-color: #fff;
 }
@@ -150,24 +162,11 @@ li button:hover {
 @media (max-width: 600px) {
   input[type="text"] {
     margin-left: 0.5rem;
-    width: 70%;
+    width: 60%;
   }
 
   button {
-    width: 15%;
     margin-left: 0;
-  }
-
-  div > div {
-    gap: 0.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-  }
-
-  li {
-    flex-direction: row;
-    flex-wrap: wrap;
   }
 }
 </style>

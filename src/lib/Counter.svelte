@@ -12,24 +12,29 @@
     }
 </script>
 
-<div>
+<div class="main">
   <h1>Counter</h1>
   <input style="height: 25px;" type="text" name="" placeholder="Enter the Counter's name" bind:value={CounterName}/>
-  <button onclick={addCounter}>Add Counter</button>
+  <button onclick={addCounter}>Add</button>
   <hr/>
-  <ul>
+  <div class="grid-container">
     {#each counterList as item}
-      <li><CounterComponent CounterName={item}/></li>
+      <CounterComponent CounterName={item}/>
     {/each}
     {#if counterList.length === 0}
-      <li>You have no counter yet</li>
+      <div>You have no counter yet</div>
     {/if}
-  </ul>
+  </div>
 </div>
 
 <style>
   input[type="text"] {
     background: var(--bg-color);
     color: var(--text-color);
+  }
+  
+  .grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
   }
 </style>

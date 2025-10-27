@@ -8,14 +8,13 @@
   }
 </script>
 
-<div>
-  <span class="text">Count of "{CounterName}" is {count}</span><button onclick={increment}>Count</button>
-  
-</div>
+<span class="text">{CounterName}</span>
+<button onclick={increment}>{count}</button>
 
 <style>
   .text {
     padding: 20px;
     font-weight:900;
+    overflow: auto;
   }
 </style>

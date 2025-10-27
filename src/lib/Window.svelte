@@ -12,10 +12,12 @@
 
   if (window.innerWidth < 768) {
     // @ts-ignore
-    size.width = window.innerWidth * 90/100
+    size.width = window.innerWidth * 93/100
     // @ts-ignore
-    size.height = window.innerHeight  * 82/100
+    size.height = window.innerHeight  * 87/100
     
+    pos.y += 30
+
   }
 
   function handleMouseDown(event) {
