@@ -40,8 +40,8 @@
   $effect(() => {
     if (list.some(item => item.checked)) {
       sortList(list)
-      window.localStorage.setItem("todolist", JSON.stringify(list))
     }
+    window.localStorage.setItem("todolist", JSON.stringify(list))
   });
 </script>
 
