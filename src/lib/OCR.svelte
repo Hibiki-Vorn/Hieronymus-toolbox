@@ -19,7 +19,7 @@
                 reader.onload = () => resolve(reader.result);
                 reader.onerror = (error) => reject(error);
             }).then((uri) => {
-                Tesseract.recognize(uri, ["eng","chi_sim"], {
+                Tesseract.recognize(uri, ["eng", "chi_sim"], {
                     logger: (info) => {
                         progressState = info.status;
                         progress = info.progress;
@@ -32,13 +32,13 @@
     };
 
     const clear = () => {
-        textOCR ="";
+        textOCR = "";
         progress = 0;
         progressState = "";
     };
 </script>
 
-<div>
+<div class="container">
     {#if progress === 0}
         <span>This is an OCR app</span>
         <button onclick={getImage}>Upload Image</button>
@@ -46,18 +46,21 @@
         <div>{progressState}</div>
         <progress value={progress} max="1"></progress>
     {:else if textOCR !== ""}
-        <span>
-            This is result
-            <button onclick={clear}>Clear</button>
-        </span>
-        <div class="result">{textOCR}</div>
+        <div class="result">
+            <div>
+                This is result
+                <button onclick={clear}>Clear</button>
+            </div>
+            {textOCR}
+        </div>
     {/if}
 </div>
 
 <style>
     .result {
+        padding-bottom: 25px;
         text-align: justify;
-        max-height: 80%;
+        height: 80%;
         overflow: auto;
     }
 
@@ -67,6 +70,9 @@
     }
 
     progress {
-        height: 10px;
+        margin-top: 10px;
+        height: 15px;
+        appearance: none;
+        border-radius: 15px;
     }
 </style>
