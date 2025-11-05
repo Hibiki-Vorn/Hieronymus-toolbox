@@ -22,11 +22,14 @@
     "@capacitor/haptics": "7.0.2",
     "@capacitor/keyboard": "7.0.3",
     "@capacitor/status-bar": "7.0.3",
-    "barcode": "^0.1.0",
+    "@paddlejs-models/ocr": "^1.2.4",
+    "@paddlejs-models/ocrdet": "^1.1.1",
+    "barcode": "^0.0.4",
     "js-base64": "^3.7.8",
     "jsbarcode": "^3.12.1",
     "qrcode": "^1.5.4",
     "svelte-simple-modal": "^2.0.0",
-    "svelte-spa-router": "^4.0.1"
+    "svelte-spa-router": "^4.0.1",
+    "tesseract.js": "^6.0.1"
   }
 }
