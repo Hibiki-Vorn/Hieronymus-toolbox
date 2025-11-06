@@ -17,11 +17,19 @@ let showMenu = $state(false)
 let lightTheme = $state(window.localStorage.getItem("lightMode"))
 
 const toggleTheme = (newTheme) => {
-  const theme = newTheme.toString()
+  const theme = newTheme
   window.localStorage.setItem("lightMode", theme)
   lightTheme = ( window.localStorage.getItem("lightMode") === "true" )
-  document.body.dataset.lightTheme = lightTheme.toString()
+  document.body.dataset.lightTheme = lightTheme
   return newTheme
+}
+
+const switchTheme = () => {
+  if (document.body.dataset.lightTheme === "true") {
+    document.body.dataset.lightTheme = "false"
+  } else {
+    document.body.dataset.lightTheme = "true"
+  }
 }
 
 window.addEventListener("load", () => {
@@ -69,7 +77,7 @@ async function loadComponent(p) {
       activeContent="🌙"
       inactiveContent="☀️"
       activedBackgroundcolor="black"
-      onclick={toggleTheme} 
+      onclick={switchTheme} 
       checked={window.localStorage.getItem("lightMode") !== "true"}/>
   </div>
 </header>
