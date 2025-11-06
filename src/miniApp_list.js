@@ -3,35 +3,30 @@ export const pages = [
   {
     name: "Counter",
     icon: () => import('./assets/square-1.svg'),
-    router: "/",
     // @ts-ignore
     source: () => import('./lib/Counter.svelte'),
   },
   {
     name: "ToDo List",
     icon: () => import('./assets/list-check.svg'),
-    router: "/",
     // @ts-ignore
     source: () => import('./lib/Todolist.svelte'),
   },
   {
     name: "QR code Generation",
     icon: () => import('./assets/qr.png'),
-    router: "/",
     // @ts-ignore
     source: () => import('./lib/Qrcode.svelte'),
   },
   {
     name: "Bar code Generation",
     icon: () => import('./assets/barcode.svg'),
-    router: "/",
     // @ts-ignore
     source: () => import('./lib/Barcode.svelte'),
   },
   {
     name: "OCR",
     icon: () => import('./assets/ocr.svg'),
-    router: "/",
     // @ts-ignore
     source: () => import('./lib/OCR.svelte'),
   }
@@ -40,7 +35,7 @@ export const pages = [
 // 自动生成路由对象
 export const routes = pages.reduce((acc, page) => {
   // 这里把 "/ToDo-List" -> "/TodoList" 等等统一成驼峰
-  const key = page.router.replace(/-./g, m => m[1].toUpperCase());
+  const key = page.name;
   acc[key] = page.source;
   return acc;
 }, {});
