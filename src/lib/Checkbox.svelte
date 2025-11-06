@@ -15,9 +15,6 @@
 
         checkstate = checked
 
-        console.log("checked = ",checked)
-        console.log("checkstate = ",checkstate)
-
         if (activeContent) {
             _this.style.setProperty("--active-content", `"${activeContent}"`)
         }
