@@ -130,7 +130,7 @@
         width: 80%;
         max-width: 1000px;
         min-width: 150px;
-        margin: 0 auto;
+        margin-bottom: 3rem;
     }
 
     .barcode-container, textarea {
@@ -158,5 +158,9 @@
 
     input, select {
         float: right;
+    }
+    
+    ol {
+        padding: 0;
     }
 </style>

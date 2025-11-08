@@ -13,7 +13,7 @@
 </script>
 
 <div class="main">
-  <h1>Counter</h1>
+  <h2>Counter</h2>
   <input style="height: 25px;" type="text" name="" placeholder="Enter the Counter's name" bind:value={CounterName}/>
   <button onclick={addCounter}>Add</button>
   <hr/>
@@ -35,6 +35,6 @@
   
   .grid-container {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 80% 20%;
   }
 </style>

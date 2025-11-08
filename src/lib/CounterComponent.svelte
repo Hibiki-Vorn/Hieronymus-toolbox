@@ -1,5 +1,4 @@
 <script>
-
   const { CounterName } = $props()
 
   let count = $state(0)

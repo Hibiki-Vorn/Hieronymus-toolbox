@@ -46,7 +46,7 @@
 </script>
 
 <div class="contain">
-  <h1>This is a ToDo list</h1>
+  <h2>This is a ToDo list</h2>
   <div>
     <input
       type="text"

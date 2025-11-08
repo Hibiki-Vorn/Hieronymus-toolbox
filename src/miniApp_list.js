@@ -14,7 +14,7 @@ export const pages = [
   },
   {
     name: "QR code Generation",
-    icon: () => import('./assets/qr.png'),
+    icon: () => import('./assets/qr.svg'),
     // @ts-ignore
     source: () => import('./lib/Qrcode.svelte'),
   },
@@ -29,12 +29,17 @@ export const pages = [
     icon: () => import('./assets/ocr.svg'),
     // @ts-ignore
     source: () => import('./lib/OCR.svelte'),
+  },
+  {
+    name: "ShortChain",
+    icon: () => import('./assets/ShortChain.svg'),
+    // @ts-ignore
+    source: () => import('./lib/ShortChain.svelte'),
   }
 ];
 
 // 自动生成路由对象
 export const routes = pages.reduce((acc, page) => {
-  // 这里把 "/ToDo-List" -> "/TodoList" 等等统一成驼峰
   const key = page.name;
   acc[key] = page.source;
   return acc;

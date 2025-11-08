@@ -191,8 +191,8 @@
     height: calc(100% - 3rem);
     overflow: auto;
     padding: 10px;
-    align-items: center;
-    align-content: center;
+    /*align-items: center;
+    align-content: center;*/
     overflow: auto;
   }
 

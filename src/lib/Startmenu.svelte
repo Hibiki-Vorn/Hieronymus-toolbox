@@ -58,7 +58,9 @@
     }
 
     img {
-        border-radius: 10px;
+        border-radius: 16px;
+        background-color: black;
+        padding: 5px;
         height: 50px;
         width: 50px;
     }
