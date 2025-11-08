@@ -31,10 +31,16 @@ export const pages = [
     source: () => import('./lib/OCR.svelte'),
   },
   {
-    name: "ShortChain",
+    name: "Short Chain",
     icon: () => import('./assets/ShortChain.svg'),
     // @ts-ignore
     source: () => import('./lib/ShortChain.svelte'),
+  },
+  {
+    name: "Girl Friend",
+    icon: () => import('./assets/girl.svg'),
+    // @ts-ignore
+    source: () => import('./lib/live2D.svelte'),
   }
 ];
 
