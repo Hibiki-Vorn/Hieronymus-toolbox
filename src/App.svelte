@@ -1,9 +1,9 @@
 <script>
 // @ts-nocheck
-import { onMount } from 'svelte';
+import { mount, onMount } from 'svelte';
 import Checkbox from './lib/Checkbox.svelte';
 import Window from './lib/Window.svelte';
-import { pages, routes } from './miniApp_list';
+import { pages, getComponentByPathname } from './miniApp_list';
 import Index from './lib/Index.svelte';
 import Startmenu from './lib/Startmenu.svelte';
 
@@ -61,6 +61,15 @@ async function loadComponent(p) {
       _404_message = "Error loading component ";
     }
   }
+
+  onMount(()=>{
+    const pathname = window.location.pathname;
+    if (pathname === "/") return;
+    const component = getComponentByPathname(pathname);
+    if (component) {
+      loadComponent(component);
+    }
+  })
 </script>
 
 <header class="navbar">
